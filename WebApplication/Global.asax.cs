@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -17,6 +18,9 @@ namespace WebApplication
 
         void Application_Start(object sender, EventArgs e)
         {
+            ThreadPool.SetMinThreads(1, 1);
+            ThreadPool.SetMaxThreads(2, 2);
+
             _ThreadPoolLogger.Value.Start();
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
