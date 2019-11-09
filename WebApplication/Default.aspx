@@ -15,6 +15,7 @@
         <div id="MinCompletionPortThreads"></div>
     </div>
     <script type="text/javascript" >
+
         var exampleSocket = new WebSocket("wss://localhost:44303/threadpool");
 
         Plotly.plot('chart', [{
@@ -30,7 +31,7 @@
 
         exampleSocket.onmessage = function (event) {
             var data = jQuery.parseJSON(event.data);
-            Plotly.extendTraces('chart', { y: [[data.AvailableWorkerThreads], [data.AvailableCompletionPortThreads]] }, [0,1]);
+            Plotly.extendTraces('chart', { y: [[data.AvailableWorkerThreads], [data.AvailableCompletionPortThreads]] }, [0,1], 120);
 
             jQuery.each(data,
                 function(index, value) {
