@@ -1,12 +1,15 @@
-﻿namespace WebApplication
+﻿using System;
+
+namespace WebApplication
 {
     public class ThreadPoolStats
     {
-        public int WorkerThreads { get; set; }
-        public int CompletionPortThreads { get; set; }
-        public int MaxWorkerThreads { get; set; }
-        public int MaxCompletionPortThreads { get; set; }
-        public int MinWorkerThreads { get; set; }
-        public int MinCompletionPortThreads { get; set; }
+        public DateTimeOffset DateTime { get; set; } = DateTimeOffset.UtcNow;
+        public int AvailableWorkerThreads { get; set; } = 0;
+        public int AvailableCompletionPortThreads { get; set; } = 0;
+        public int MaxWorkerThreads { get; set; } = 0;
+        public int MaxCompletionPortThreads { get; set; } = 0;
+        public int MinWorkerThreads { get; set; } = 0;
+        public int MinCompletionPortThreads { get; set; } = 0;
     }
 }

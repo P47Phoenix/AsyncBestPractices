@@ -29,18 +29,8 @@ namespace WebApplication.Handlers
         //Asynchronous request handler. 
         public async Task WebSocketRequestHandler(AspNetWebSocketContext webSocketContext) 
         { 
-            BroadcastBlock<ThreadPoolStats> broadcastBlock = new BroadcastBlock<ThreadPoolStats>(stats => stats);
 
             JsonSerializer js = new JsonSerializer();
-
-            async Task ThreadPoolLoggerOnOnNewStats(ThreadPoolStats stats)
-            {
-                await broadcastBlock.SendAsync(stats);
-            }
-
-            try
-            {
-                Global.ThreadPoolLogger.OnNewStats += ThreadPoolLoggerOnOnNewStats;
 
                 //Gets the current WebSocket object. 
                 WebSocket webSocket = webSocketContext.WebSocket;
@@ -60,38 +50,24 @@ namespace WebApplication.Handlers
                 //Checks WebSocket state. 
                 while (webSocket.State == WebSocketState.Open)
                 {
-                    //Reads data. 
-                    WebSocketReceiveResult webSocketReceiveResult =
-                        await webSocket.ReceiveAsync(receivedDataBuffer, cancellationToken);
-
-                    //If input frame is cancelation frame, send close command. 
-                    if (webSocketReceiveResult.MessageType == WebSocketMessageType.Close)
+                    using (MemoryStream ms = new MemoryStream())
+                    using (StreamWriter sm = new StreamWriter(ms))
+                    using (JsonWriter jw = new JsonTextWriter(sm))
                     {
-                        await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure,
-                            String.Empty, cancellationToken);
-                    }
-                    else
-                    {
-                        using (MemoryStream ms = new MemoryStream())
-                        using (StreamWriter sm = new StreamWriter(ms))
-                        using (JsonWriter jw = new JsonTextWriter(sm))
-                        {
-                            var stats = await broadcastBlock.ReceiveAsync();
+                        var stats = await Global.ThreadPoolLogger.SourceBlock.ReceiveAsync();
 
-                            js.Serialize(jw, stats);
+                        js.Serialize(jw, stats);
 
-                            //Sends data back. 
-                            await webSocket.SendAsync(new ArraySegment<byte>(ms.ToArray()),
-                                WebSocketMessageType.Text, true, cancellationToken);
-                        }
+                        await jw.FlushAsync();
+
+                        //Sends data back. 
+                        await webSocket.SendAsync(new ArraySegment<byte>(ms.ToArray()),
+                            WebSocketMessageType.Text, true, cancellationToken);
+
+                        await Task.Delay(500);
                     }
                 }
-            }
-            finally
-            {
-                // always un register your events
-                Global.ThreadPoolLogger.OnNewStats -= ThreadPoolLoggerOnOnNewStats;
-            }
+            
         } 
     } 
 }
