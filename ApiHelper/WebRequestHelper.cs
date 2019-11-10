@@ -33,13 +33,13 @@ namespace CarDashboard.Pages.CRM.Helper
         /// <param name="relativeToServerRootUri">The relative URI.</param>
         /// <param name="body">The body.</param>
         /// <returns></returns>
-        public static TResponse CookieAuthPost<TResponse, TRequest>(string uri, TRequest body) 
+        public static TResponse Post<TResponse, TRequest>(string uri, TRequest body) 
             where TRequest : class
             where TResponse : class
         {
             var stopwatch = Stopwatch.StartNew();
             var httpRequest = WebRequest.CreateHttp(uri);
-            using (LogContext.PushProperty($"action", nameof(CookieAuthPost)))
+            using (LogContext.PushProperty($"action", nameof(Post)))
             using (LogContext.PushProperty($"CookieAuthPost.{nameof(httpRequest.RequestUri)}", httpRequest.RequestUri))
             using(MemoryStream requestBuffer = new MemoryStream())
             using (var streamWriter = new StreamWriter(requestBuffer, Encoding.UTF8))

@@ -64,7 +64,7 @@ namespace WebApplication.Handlers
                         await webSocket.SendAsync(new ArraySegment<byte>(ms.ToArray()),
                             WebSocketMessageType.Text, true, cancellationToken);
 
-                        await Task.Delay(500);
+                        await Task.Delay(100);
                     }
                 }
             

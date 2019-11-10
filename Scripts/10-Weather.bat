@@ -1,0 +1,10 @@
+psexec -d Weather.bat
+psexec -d Weather.bat
+psexec -d Weather.bat
+psexec -d Weather.bat
+psexec -d Weather.bat
+psexec -d Weather.bat
+psexec -d Weather.bat
+psexec -d Weather.bat
+psexec -d Weather.bat
+psexec -d Weather.bat
