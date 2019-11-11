@@ -211,6 +211,8 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="WeatherAsync.aspx" />
+    <Content Include="WeatherSync.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
@@ -267,7 +269,21 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="WeatherAsync.aspx.cs">
+      <DependentUpon>WeatherAsync.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeatherAsync.aspx.designer.cs">
+      <DependentUpon>WeatherAsync.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WeatherForecast.cs" />
+    <Compile Include="WeatherSync.aspx.cs">
+      <DependentUpon>WeatherSync.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeatherSync.aspx.designer.cs">
+      <DependentUpon>WeatherSync.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

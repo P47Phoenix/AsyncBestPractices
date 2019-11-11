@@ -1,0 +1,116 @@
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-SourceFiles: =?UTF-8?B?RTpcR2l0SHViXEFzeW5jQmVzdFByYWN0aWNlc1xXZWJBcHBsaWNhdGlvblxXZWF0aGVy?=
+X-Powered-By: ASP.NET
+Date: Mon, 11 Nov 2019 19:07:52 GMT
+Content-Length: 5048
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>
+	Weather - My ASP.NET Application
+</title><script src="/Scripts/modernizr-2.8.3.js"></script>
+<link href="/Content/bootstrap.css" rel="stylesheet"/>
+<link href="/Content/Site.css" rel="stylesheet"/>
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" /></head>
+<body>
+    <form method="post" action="./Weather" id="ctl01">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="uFX2LlbbOGM/jU5RZUVbq60tQ43+JNYpeSrGxL6H0zTzl7lh9CibQhoj/v5LkcdEEpugm/vFp+ULIJHVuiMntJFjRmaWCuX+j6/WTyD+2vKWbBosmFfkyj8rJdjTJ7SEg3vVU5T0k43IlZ0CyHb87DJkaMq8fv64nGTUWiUI+b2ELV/KD1Kdp/WzlK/8Fd5HgfXI3yJEgMGvUyUocy7k3PNzksuAoXXNRERxSkj6W2BgqLeBYaAP+FoiHzD59n4MTreBTC5beiho0zi24fzdE2UzudAGCjMpMKk4jQ3cSMmhMYRITpRuPzmhtVlAop5hKATUuFSss3+x38GzM1/wOEnDQCKmhphVsc9nDCg0XcwDb6iWTZqbOqcfacAqKmqaEnJLqWNtjS1RwSQ9onr4mC9jxBtdWHN6r1W41QRx6cSnUDrPLBc0oGDfsqwHiYqBcHZOyvyHfsfysJs5gN62Pyjx1CJnJHkEigtl4EJGyNuXocO3M2NUjw+Ck77FUHFb2fS/8XzsyTLtCbgdlmemKymzMk8pZe5sOfh8eybPxE2Q8cFgChFrrTLEnIlB76kofoAjGqspHyaCkJ1RRIB2/9Rd/n71C3Ca7JIEWSB1QahJ41/Bd8GbJpNYdIaffZPTVUkyydO+RrdlRL+osjccNcVp0tPANNN8ILHok2rWfmEVlJndej62671x4IGC1tgAu5rjvvQJpk7MPVtcjmFA+XE22oyXGDqYA8ZHTrVmETxrSMv4PGtH/OU0GVdqUkfyn7YzgQzCmmSuUC5OuWISLLJO/CrodA4n4HGaP6xiIU7gCb4+eJXPiocEUGN3gufYiGkGBsP+hgIEH5HoUETFlMHYhprQv6U8DsK6XWFus67D48VODzkCLi8qYeoz40gXNKdzWjIXQCrGeZQVYLwR7isL2FGYSssqJXfLdVwVJSfG8O6QP9HefYRjyogPcxNKMIkvjxPL2cQRa8EnlW4C+A6o6+32vk1Orom6dvMXXFvVGrXc4kFrPXlJniM4MIQ+CWjSDj4oFlttYqldmXke0D0NDIxUJbHF7+kpqH4mOuskVKtYZMcZlbxsZ1Tz7/Ar6oJJxyS/1w2AgypEmKvOgj8GnWrcpl+YCpu12HSMoYA=" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['ctl01'];
+if (!theForm) {
+    theForm = document.ctl01;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+
+<script src="/bundles/MsAjaxJs?v=D6VN0fHlwFSIWjbVzi6mZyE9Ls-4LNrSSYVGRU46XF81" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<script src="Scripts/jquery-3.3.1.js" type="text/javascript"></script>
+<script src="Scripts/bootstrap.js" type="text/javascript"></script>
+<script src="/bundles/WebFormsJs?v=N8tymL9KraMLGAMFuPycfH3pXe6uUlRXdhtYv8A_jUU1" type="text/javascript"></script>
+<script src="Scripts/plotly-v1.51.1.js" type="text/javascript"></script>
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="1C0D827D" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ctl08', 'ctl01', [], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="./" class="navbar-brand">Application name</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="./">Home</a></li>
+                        <li><a href="Weather">Weather</a></li>
+                        <li><a href="Contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            
+    <h2>Weather.</h2>
+    <table cellspacing="0" rules="all" border="1" id="m_datagrid_weather" style="border-collapse:collapse;">
+	<tr>
+		<td>Date</td><td>TemperatureC</td><td>TemperatureF</td><td>Summary</td>
+	</tr><tr>
+		<td>11/12/2019 1:07:52 PM</td><td>52</td><td>125</td><td>Mild</td>
+	</tr><tr>
+		<td>11/13/2019 1:07:52 PM</td><td>21</td><td>69</td><td>Warm</td>
+	</tr><tr>
+		<td>11/14/2019 1:07:52 PM</td><td>25</td><td>76</td><td>Mild</td>
+	</tr><tr>
+		<td>11/15/2019 1:07:52 PM</td><td>35</td><td>94</td><td>Bracing</td>
+	</tr><tr>
+		<td>11/16/2019 1:07:52 PM</td><td>7</td><td>44</td><td>Chilly</td>
+	</tr>
+</table>
+
+            <hr />
+            <footer>
+                <p>&copy; 2019 - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+    </form>
+</body>
+</html>
