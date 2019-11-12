@@ -33,7 +33,7 @@ namespace CarDashboard.Pages.CRM.Helper
         /// <param name="relativeToServerRootUri">The relative URI.</param>
         /// <param name="body">The body.</param>
         /// <returns></returns>
-        public static TResponse Post<TResponse, TRequest>(string uri, TRequest body) 
+        public static TResponse Post<TResponse, TRequest>(Uri uri, TRequest body) 
             where TRequest : class
             where TResponse : class
         {

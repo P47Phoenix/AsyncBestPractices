@@ -11,7 +11,7 @@ namespace WebApplication
 {
 
 
-    public partial class Weather
+    public partial class WeatherSyncToAsyncResult
     {
 
         /// <summary>

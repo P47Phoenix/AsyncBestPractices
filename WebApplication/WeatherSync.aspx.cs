@@ -1,13 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Serilog;
+using System;
+using System.IO;
+using System.Net;
 using TestApiCall;
 
 namespace WebApplication
@@ -16,7 +11,7 @@ namespace WebApplication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var request = WebRequest.CreateHttp(new Uri("https://localhost:44363/weatherforecast"));
+            var request = System.Net.WebRequest.CreateHttp(new Uri("https://localhost:44363/weatherforecast"));
 
             request.Method = "GET";
             try

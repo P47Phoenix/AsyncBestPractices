@@ -155,7 +155,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Weather.aspx" />
+    <Content Include="WeatherSyncToAsync.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -213,18 +213,19 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="WeatherAsync.aspx" />
     <Content Include="WeatherSync.aspx" />
+    <Content Include="WeatherSyncToAsyncResult.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="Weather.aspx.cs">
-      <DependentUpon>Weather.aspx</DependentUpon>
+    <Compile Include="WeatherSyncToAsync.aspx.cs">
+      <DependentUpon>WeatherSyncToAsync.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Weather.aspx.designer.cs">
-      <DependentUpon>Weather.aspx</DependentUpon>
+    <Compile Include="WeatherSyncToAsync.aspx.designer.cs">
+      <DependentUpon>WeatherSyncToAsync.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Contact.aspx.cs">
@@ -260,8 +261,8 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="ThreadPoolLogger.cs" />
-    <Compile Include="ThreadPoolStats.cs" />
+    <Compile Include="Handlers\ThreadPoolLogger.cs" />
+    <Compile Include="Handlers\ThreadPoolStats.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -283,6 +284,13 @@
     </Compile>
     <Compile Include="WeatherSync.aspx.designer.cs">
       <DependentUpon>WeatherSync.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherSyncToAsyncResult.aspx.cs">
+      <DependentUpon>WeatherSyncToAsyncResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeatherSyncToAsyncResult.aspx.designer.cs">
+      <DependentUpon>WeatherSyncToAsyncResult.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +318,12 @@
     <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.7\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApiHelper\ApiHelper.csproj">
+      <Project>{b3114201-f869-46f5-9493-19b5a411c8e9}</Project>
+      <Name>ApiHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
