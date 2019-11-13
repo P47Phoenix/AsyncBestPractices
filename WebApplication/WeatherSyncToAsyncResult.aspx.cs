@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
+using Serilog;
 using TestApiCall;
 
 namespace WebApplication
@@ -17,32 +18,41 @@ namespace WebApplication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            using (var cancellationTokenSource = new CancellationTokenSource(500))
+            try
             {
-                var httpClient = new HttpClientFactory().Create(new Uri("https://localhost:44363"));
-
-                using (HttpRequestMessage httpRequestMessage =
-                    new HttpRequestMessage(HttpMethod.Get, "/weatherforecast"))
+                using (var cancellationTokenSource = new CancellationTokenSource(500))
                 {
+                    var httpClient = new HttpClientFactory().Create(new Uri(Properties.Settings.Default.RootUri));
 
-                    var result = httpClient.SendAsync(httpRequestMessage, cancellationTokenSource.Token).Result;
-
-                    if (result.IsSuccessStatusCode == false)
+                    using (HttpRequestMessage httpRequestMessage =
+                        new HttpRequestMessage(HttpMethod.Get, "weatherforecast"))
                     {
-                        return;
-                    }
 
-                    JsonSerializer js = new JsonSerializer();
+                        var result = httpClient.SendAsync(httpRequestMessage, cancellationTokenSource.Token).Result;
 
-                    using (var stream = result.Content.ReadAsStreamAsync().Result)
-                    using (StreamReader reader = new StreamReader(stream))
-                    using (JsonTextReader jsonTextReader = new JsonTextReader(reader))
-                    {
-                        var data = js.Deserialize<WeatherForecast[]>(jsonTextReader);
-                        m_datagrid_weather.DataSource = data;
-                        m_datagrid_weather.DataBind();
+                        if (result.IsSuccessStatusCode == false)
+                        {
+                            return;
+                        }
+
+                        JsonSerializer js = new JsonSerializer();
+
+                        using (var stream = result.Content.ReadAsStreamAsync().Result)
+                        using (StreamReader reader = new StreamReader(stream))
+                        using (JsonTextReader jsonTextReader = new JsonTextReader(reader))
+                        {
+                            var data = js.Deserialize<WeatherForecast[]>(jsonTextReader);
+                            m_datagrid_weather.DataSource = data;
+                            m_datagrid_weather.DataBind();
+                        }
                     }
                 }
+            }
+            catch (Exception error)
+            {
+                Global.ThreadPoolLogger.ErrorOccured();
+                Log.Error(error, "error getting weather");
+
             }
         }
     }

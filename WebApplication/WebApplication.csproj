@@ -21,7 +21,7 @@
     <RootNamespace>WebApplication</RootNamespace>
     <AssemblyName>WebApplication</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44303</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
@@ -104,6 +104,24 @@
       <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.10.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -179,6 +197,10 @@
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
     <None Include="Properties\PublishProfiles\registry.hub.docker.com_P47Phoenix.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -213,6 +235,7 @@
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="WeatherAsync.aspx" />
     <Content Include="WeatherSync.aspx" />
+    <Content Include="WeatherSyncToAsyncNoTimeout.aspx" />
     <Content Include="WeatherSyncToAsyncResult.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -220,6 +243,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Handlers\ThreadStatsWebSocketHandler.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ThreadStatsWebSocketHandler.cs" />
     <Compile Include="WeatherSyncToAsync.aspx.cs">
       <DependentUpon>WeatherSyncToAsync.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -245,7 +275,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\ThreadStatsWebSocketHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -261,8 +290,6 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\ThreadPoolLogger.cs" />
-    <Compile Include="Handlers\ThreadPoolStats.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -284,6 +311,13 @@
     </Compile>
     <Compile Include="WeatherSync.aspx.designer.cs">
       <DependentUpon>WeatherSync.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherSyncToAsyncNoTimeout.aspx.cs">
+      <DependentUpon>WeatherSyncToAsyncNoTimeout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeatherSyncToAsyncNoTimeout.aspx.designer.cs">
+      <DependentUpon>WeatherSyncToAsyncNoTimeout.aspx</DependentUpon>
     </Compile>
     <Compile Include="WeatherSyncToAsyncResult.aspx.cs">
       <DependentUpon>WeatherSyncToAsyncResult.aspx</DependentUpon>
@@ -324,6 +358,10 @@
       <Project>{b3114201-f869-46f5-9493-19b5a411c8e9}</Project>
       <Name>ApiHelper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Util.Thread\Util.Thread.csproj">
+      <Project>{5d09d2c8-8d37-48e3-80a7-c023547a508e}</Project>
+      <Name>Util.Thread</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -340,7 +378,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1194</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44303/</IISUrl>
+          <IISUrl>http://localhost/WebApplication</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

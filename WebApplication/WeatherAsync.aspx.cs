@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
+using Serilog;
 using TestApiCall;
 
 namespace WebApplication
@@ -17,17 +18,16 @@ namespace WebApplication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            WeatherForecast[] data = null;
-            this.RegisterAsyncTask(new PageAsyncTask(async () =>
+            this.RegisterAsyncTask(new PageAsyncTask(async token =>
             {
-                using (var cancellationTokenSource = new CancellationTokenSource(500))
+                try
                 {
-                    var httpClient = new HttpClientFactory().Create(new Uri("https://localhost:44363"));
+                    var httpClient = new HttpClientFactory().Create(new Uri(Properties.Settings.Default.RootUri));
 
                     using (HttpRequestMessage httpRequestMessage =
-                        new HttpRequestMessage(HttpMethod.Get, "https://localhost:44363/weatherforecast"))
+                        new HttpRequestMessage(HttpMethod.Get, "weatherforecast"))
                     {
-                        var result = await httpClient.SendAsync(httpRequestMessage, cancellationTokenSource.Token).ConfigureAwait(false);
+                        var result = await httpClient.SendAsync(httpRequestMessage, token).ConfigureAwait(false);
 
                         if (result.IsSuccessStatusCode == false)
                         {
@@ -40,17 +40,20 @@ namespace WebApplication
                         using (StreamReader reader = new StreamReader(stream))
                         using (JsonTextReader jsonTextReader = new JsonTextReader(reader))
                         {
-                            data = js.Deserialize<WeatherForecast[]>(jsonTextReader);
+                            m_datagrid_weather.DataSource = js.Deserialize<WeatherForecast[]>(jsonTextReader);
+                            m_datagrid_weather.DataBind();
                         }
                     }
+                
+                }
+                catch (Exception error)
+                {
+                    Global.ThreadPoolLogger.ErrorOccured();
+                    Log.Error(error, "error getting weather");
                 }
             }));
 
             this.ExecuteRegisteredAsyncTasks();
-
-            m_datagrid_weather.DataSource = data;
-            m_datagrid_weather.DataBind();
-
         }
     }
 }

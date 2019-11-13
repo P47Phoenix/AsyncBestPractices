@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebApplication._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
   
     <div>Thread Count</div>
     <div id="chart"></div>
@@ -14,26 +13,41 @@
         <div id="MaxCompletionPortThreads"></div>
         <div id="MinWorkerThreads"></div>
         <div id="MinCompletionPortThreads"></div>
+        <div id="Error"></div>
     </div>
     <script type="text/javascript" >
         (function() {
 
-            var exampleSocket = new WebSocket("wss://localhost:44303/threadpool");
+            var exampleSocket = new WebSocket("wss://localhost/WebApplication/threadpool");
 
             Plotly.plot('chart', [{
                 y: [0],
                 type: 'line',
-                name: 'AvailableWorkerThreads'
+                name: 'AvailableWorkerThreads',
+                marker: {
+                    color: 'rgb(0,6,182)'
+                }
             },
             {
                 y: [0],
                 type: 'line',
-                name: 'AvailableCompletionPortThreads'
+                name: 'AvailableCompletionPortThreads',
+                marker: {
+                    color: 'rgb(68,151,84)'
+                }
             },
             {
                 y: [0],
                 type: 'bar',
                 name: 'ms > 200 Slowdown detected',
+                marker: {
+                    color: 'rgb(228,194,0)'
+                }
+            },
+            {
+                y: [0],
+                type: 'bar',
+                name: 'Error',
                 marker: {
                     color: 'rgb(85,0,19)'
                 }
@@ -43,7 +57,10 @@
 
             function setDelayedResponse(data) {
                 timeoutId = window.setTimeout(function() {
-                    Plotly.extendTraces('chart', { y: [[data.AvailableWorkerThreads], [data.AvailableCompletionPortThreads], [5]] }, [0,1,2], 120);
+                    Plotly.extendTraces('chart', 
+                        { y: [[data.AvailableWorkerThreads], [data.AvailableCompletionPortThreads], [5], [0]] }, 
+                        [0, 1, 2, 3], 
+                        120);
                 }, 200);
 
             }
@@ -62,9 +79,18 @@
                 }
                 var milliseconds = epochMilliseconds();
                 var data = jQuery.parseJSON(event.data);
+
+                var error;
+
+                if (data.Error) {
+                    error = 5;
+                } else {
+                    error = 0;
+                }
+
                 Plotly.extendTraces('chart',
-                    { y: [[data.AvailableWorkerThreads], [data.AvailableCompletionPortThreads], [0]] },
-                    [0, 1, 2],
+                    { y: [[data.AvailableWorkerThreads], [data.AvailableCompletionPortThreads], [0], [error]] },
+                    [0, 1, 2, 3],
                     120);
                 
                 jQuery.each(data,

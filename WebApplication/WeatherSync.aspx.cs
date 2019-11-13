@@ -11,7 +11,7 @@ namespace WebApplication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var request = System.Net.WebRequest.CreateHttp(new Uri("https://localhost:44363/weatherforecast"));
+            var request = System.Net.WebRequest.CreateHttp(new Uri($"{Properties.Settings.Default.RootUri}weatherforecast"));
 
             request.Method = "GET";
             try
@@ -32,10 +32,12 @@ namespace WebApplication
             }
             catch (WebException webException)
             {
+                Global.ThreadPoolLogger.ErrorOccured();
                 Log.Error(webException, "Api call failed");
             }
             catch (Exception exception)
             {
+                Global.ThreadPoolLogger.ErrorOccured();
                 Log.Error(exception, "A unknown error was thrown");
             }
         }

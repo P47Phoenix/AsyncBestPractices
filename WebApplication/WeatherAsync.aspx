@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WeatherAsync.aspx.cs" Inherits="WebApplication.WeatherAsync" MasterPageFile="Site.Master" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WeatherAsync.aspx.cs" Inherits="WebApplication.WeatherAsync" MasterPageFile="Site.Master" Async="true" AsyncTimeOut="1" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %>.</h2>
