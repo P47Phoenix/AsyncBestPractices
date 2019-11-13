@@ -1,28 +1,32 @@
-﻿
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Serilog;
 using TestApiCall;
+using WebApplication;
 
 namespace MvcWebApplication.Controllers
 {
-    public class AsyncWeatherController : Controller
+    public class SyncToAsyncWeatherController : Controller
     {
         
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             try
             {
-                var httpClient = new WebApplication.HttpClientFactory().Create(new Uri(Properties.Settings.Default.RootUri));
+                var httpClient = new WebApplication.HttpClientFactory().Create(new Uri(MvcWebApplication.Properties.Settings.Default.RootUri));
+
 
                 using (HttpRequestMessage httpRequestMessage =
                     new HttpRequestMessage(HttpMethod.Get, "weatherforecast"))
                 {
-                    var result = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
+                    var result = httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false).GetAwaiter().GetResult();
 
                     if (result.IsSuccessStatusCode == false)
                     {
@@ -31,7 +35,7 @@ namespace MvcWebApplication.Controllers
 
                     JsonSerializer js = new JsonSerializer();
 
-                    using (var stream = await result.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                    using (var stream = result.Content.ReadAsStreamAsync().ConfigureAwait(false).GetAwaiter().GetResult())
                     using (StreamReader reader = new StreamReader(stream))
                     using (JsonTextReader jsonTextReader = new JsonTextReader(reader))
                     {
