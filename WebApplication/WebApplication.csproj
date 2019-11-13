@@ -173,6 +173,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="WeatherParalelForEach.aspx" />
     <Content Include="WeatherSyncToAsync.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -253,6 +254,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ThreadStatsWebSocketHandler.cs" />
+    <Compile Include="WeatherParalelForEach.aspx.cs">
+      <DependentUpon>WeatherParalelForEach.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeatherParalelForEach.aspx.designer.cs">
+      <DependentUpon>WeatherParalelForEach.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WeatherSyncToAsync.aspx.cs">
       <DependentUpon>WeatherSyncToAsync.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
