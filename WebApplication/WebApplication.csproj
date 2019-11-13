@@ -21,7 +21,7 @@
     <RootNamespace>WebApplication</RootNamespace>
     <AssemblyName>WebApplication</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44303</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
@@ -238,6 +238,7 @@
     <Content Include="WeatherSync.aspx" />
     <Content Include="WeatherSyncToAsyncNoTimeout.aspx" />
     <Content Include="WeatherSyncToAsyncResult.aspx" />
+    <Content Include="WeatherSyncToCustomContext.aspx" />
     <Content Include="WeatherSyncToTask.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -327,6 +328,13 @@
     </Compile>
     <Compile Include="WeatherSyncToAsyncResult.aspx.designer.cs">
       <DependentUpon>WeatherSyncToAsyncResult.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherSyncToCustomContext.aspx.cs">
+      <DependentUpon>WeatherSyncToCustomContext.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeatherSyncToCustomContext.aspx.designer.cs">
+      <DependentUpon>WeatherSyncToCustomContext.aspx</DependentUpon>
     </Compile>
     <Compile Include="WeatherSyncToTask.aspx.cs">
       <DependentUpon>WeatherSyncToTask.aspx</DependentUpon>
